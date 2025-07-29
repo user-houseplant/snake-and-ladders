@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+.game {
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh;
+  color: white;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px black;
+}
+
+.setup {
+  margin-top: 40px;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.4);
+  display: inline-block;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.setup select {
+  font-size: 1rem;
+  margin: 0 10px;
+  padding: 5px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: #ffcc00;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #e6b800;
+}
+
+#dice-results {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+  text-shadow: 1px 1px 2px black;
+}
+
+.dice-container {
+  margin-top: 10px;
+}
+
+.dice-img {
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+}
+
+.board-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.board-img {
+  width: 100%;
+  display: block;
+}
+
+
+.player-piece {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  border: 1px solid white;
+}
+
+
+
+
+
+
+
