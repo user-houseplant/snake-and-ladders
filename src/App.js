@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
@@ -10,32 +11,26 @@ function App() {
   const [tiles, setTiles] = useState([]);
 
   const ladders = [
-    { start: 8, end: 26 },
-    { start: 19, end: 38 },
-    { start: 20, end: 82 },
-    { start: 28, end: 53 },
-    { start: 36, end: 57 },
-    { start: 43, end: 77 },
-    { start: 54, end: 88 },
-    { start: 62, end: 96 },
-    { start: 66, end: 87 },
-    { start: 80, end: 99 }
+    { start: 4, end: 25 },
+    { start: 13, end: 46 },
+    { start: 42, end: 63 },
+    { start: 50, end: 69 },
+    { start: 62, end: 81 },
+    { start: 74, end: 92 }
   ];
 
   const snakes = [
-    { start: 44, end: 22 },
-    { start: 46, end: 15 },
-    { start: 48, end: 9 },
-    { start: 52, end: 11 },
-    { start: 59, end: 18 },
-    { start: 64, end: 24 },
-    { start: 68, end: 2 },
-    { start: 69, end: 33 },
-    { start: 83, end: 22 },
-    { start: 92, end: 51 },
-    { start: 95, end: 37 },
-    { start: 98, end: 15 }
+    { start: 24, end: 5 },
+    { start: 40, end: 3 },
+    { start: 43, end: 18 },
+    { start: 54, end: 31 },
+    { start: 66, end: 45 },
+    { start: 89, end: 53 },
+    { start: 95, end: 77 },
+    { start: 99, end: 41 }
   ];
+
+  const playerColors = ['#d9a441', '#6a994e', '#bc6c25', '#1d3557'];
 
   useEffect(() => {
     const newTiles = [];
@@ -94,19 +89,21 @@ function App() {
     }, 500);
   };
 
-  const playerColors = ['blue', 'red', 'green', 'purple'];
-
   return (
     <div
       className="game"
       style={{
         backgroundImage: "url('/img/art.png')",
         backgroundSize: "cover",
+        backgroundPosition: "center",
         backgroundAttachment: "fixed",
-        backgroundPosition: "center"
+        minHeight: "100vh",
+        padding: "20px",
+        color: "#fff",
+        boxSizing: "border-box",
       }}
     >
-      <h1>Snakes and Ladders</h1>
+      <h1 className="title">Welcome To Snakes and Ladders</h1>
 
       {!gameStarted ? (
         <div className="setup">
@@ -117,66 +114,77 @@ function App() {
           <button className="button" onClick={startGame}>Start Game</button>
         </div>
       ) : (
-        <>
-          <div className="controls">
-            <p>🎲 Player {currentPlayer + 1}'s turn</p>
-            <button className="button" onClick={rollDice}>Roll Dice</button>
-            {diceResult && (
-              <div className="dice-container">
-                <img
-                  src={`/img/dice${diceResult}.png`}
-                  alt={`Dice ${diceResult}`}
-                  className="dice-img"
-                />
-                <div id="dice-results">You rolled: {diceResult}</div>
-              </div>
-            )}
-          </div>
+         <div className="main-layout">
 
+
+          {/* Board on Left */}
           <div className="board-container">
             <img src="/img/SnakeLadder.png" alt="Board" className="board-img" />
             {players.map((p, i) => {
-  const posIndex = tiles.indexOf(p.pos);
-  const row = Math.floor(posIndex / 10);
-  const col = posIndex % 10;
+              const posIndex = tiles.indexOf(p.pos);
+              const row = Math.floor(posIndex / 10);
+              const col = posIndex % 10;
+              const top = `${row * 10 + 5}%`;
+              const left = `${col * 10 + 5}%`;
 
-  const top = `${row * 10 + 5}%`; // 10% per row, +5% to center in tile
-  const left = `${col * 10 + 5}%`; // 10% per col, +5% to center in tile
+              // Offset each player by a few pixels to prevent overlap
+              const offsetX = (i % 2) * 10;
+              const offsetY = Math.floor(i / 2) * 10;
 
-  return (
-    <div
-      key={i}
-      className="player-piece"
-      style={{
-        position: 'absolute',
-        top,
-        left,
-        backgroundColor: playerColors[p.id],
-        width: '5%', // size of the token
-        height: '5%',
-        borderRadius: '50%',
-        transform: 'translate(-50%, -50%)', // center visually
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: '0.8rem'
-      }}
-    >
-      {p.id + 1}
-    </div>
-  );
-})}
-
+              return (
+                <div
+                  key={i}
+                  className="player-piece"
+                  style={{
+                    top: `calc(${top} + ${offsetY}px)`,
+                    left: `calc(${left} + ${offsetX}px)`,
+                    backgroundColor: playerColors[p.id]
+                  }}
+                >
+                  {p.id + 1}
+                </div>
+              );
+            })}
           </div>
-        </>
+
+          {/* Controls on Right */}
+          <div className="controls">
+  <p>🎲 Player {currentPlayer + 1}'s turn</p>
+  <div className="dice-row">
+    <button className="button" onClick={rollDice}>Roll Dice</button>
+    {diceResult && (
+      <div className="dice-container">
+        <img
+          src={`/img/dice${diceResult}.png`}
+          alt={`Dice ${diceResult}`}
+          className="dice-img"
+        />
+        <div id="dice-results">You rolled: {diceResult}</div>
+      </div>
+    )}
+  </div>
+</div>
+
+        </div>
       )}
     </div>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
